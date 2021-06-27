@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import my.model.AccessCard;
 import my.model.Employee;
 import my.model.EmployeeType;
 
@@ -26,6 +27,18 @@ public class JpaMainClass {
 		e1.setSsn("1934");
 		e1.setEmployeeType(EmployeeType.PART_TIME);
 
+		AccessCard card1 = new AccessCard();
+		card1.setActive(true);
+		card1.setIssueDate(new Date());
+		card1.setFirmwareVersion("1.2.0");
+		e.setCard(card1);
+
+		AccessCard card2 = new AccessCard();
+		card2.setActive(false);
+		card2.setIssueDate(new Date());
+		card2.setFirmwareVersion("1.2.0");
+		e1.setCard(card2);
+
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myApp");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
@@ -35,10 +48,14 @@ public class JpaMainClass {
 		entityTransaction.begin();
 		entityManager.persist(e);
 		entityManager.persist(e1);
+		entityManager.persist(card1);
+		entityManager.persist(card2);
 		entityTransaction.commit();
 		entityManager.close();
 		entityManagerFactory.close();
 
+/*		
+		
 		// Find Data from database
 
 		Employee employee = entityManager.find(Employee.class, 2);
@@ -61,6 +78,7 @@ public class JpaMainClass {
 		entityTransaction.commit();
 		entityManager.close();
 		entityManagerFactory.close();
+		*/
 
 	}
 }
