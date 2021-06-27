@@ -6,16 +6,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Employee")
 public class Employee {
 
 	@Id
+	@GeneratedValue
 	private int id;
 
 	@Column(name = "EmployeeName", length = 100)
@@ -29,6 +32,9 @@ public class Employee {
 
 	@Enumerated(EnumType.STRING)
 	private EmployeeType employeeType;
+	
+	@Transient
+	private String extra;
 
 	public int getId() {
 		return id;
@@ -69,5 +75,13 @@ public class Employee {
 	public void setEmployeeType(EmployeeType employeeType) {
 		this.employeeType = employeeType;
 	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", ssn=" + ssn + ", date=" + date + ", employeeType="
+				+ employeeType + ", extra=" + extra + "]";
+	}
+	
+	
 
 }
