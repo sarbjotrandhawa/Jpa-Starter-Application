@@ -65,9 +65,9 @@ public class JpaStartWriter {
 		card1.setActive(true);
 		card1.setIssueDate(new Date());
 		card1.setFirmwareVersion("1.2.0");
-
-		e.setCard(card1);
 		card1.setEmployee(e);
+		e.setCard(card1);
+		
 
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myApp");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();

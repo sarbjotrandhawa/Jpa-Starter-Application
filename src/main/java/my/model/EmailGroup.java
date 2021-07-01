@@ -17,7 +17,7 @@ public class EmailGroup {
 	private int id;
 	private String name;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "emailGroups")
 	private List<Employee> members = new ArrayList<Employee>();
 
 	public void setMembers(List<Employee> members) {
@@ -47,5 +47,12 @@ public class EmailGroup {
 	public void addEmployee(Employee employee) {
 		members.add(employee);
 	}
+
+	@Override
+	public String toString() {
+		return "EmailGroup [id=" + id + ", name=" + name + "]";
+	}
+	
+	
 
 }

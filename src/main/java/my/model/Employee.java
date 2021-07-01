@@ -11,8 +11,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -50,7 +51,10 @@ public class Employee {
 	private List<PayStub> paystub = new ArrayList<PayStub>();
 	
 	
-	@ManyToMany(mappedBy="members")
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="EMAIL_GROUP_SUBSCRIPTION",
+	joinColumns = @JoinColumn(name = "EEMPLOYEE_ID"),
+	inverseJoinColumns = @JoinColumn(name = "SUBSCRIPTION_GROUP_ID"))
 	private List<EmailGroup> emailGroups = new ArrayList<EmailGroup>();
 	
 
@@ -136,10 +140,12 @@ public class Employee {
 	{
 		emailGroups.add(emailGroup);
 	}
+
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", ssn=" + ssn + ", date=" + date + ", employeeType="
-				+ employeeType + ", extra=" + extra + ", card=" + card + "]";
+				+ employeeType + "]";
 	}
+	
 
 }

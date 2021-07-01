@@ -66,7 +66,9 @@ public class AccessCard {
 	@Override
 	public String toString() {
 		return "AccessCard [id=" + id + ", issueDate=" + issueDate + ", isActive=" + isActive + ", firmwareVersion="
-				+ firmwareVersion + "]";
+				+ firmwareVersion + ", employee=" + employee + "]";
 	}
+
+	
 
 }
