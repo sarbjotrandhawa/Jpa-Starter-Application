@@ -1,13 +1,19 @@
 package my.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,6 +45,23 @@ public class Employee {
 
 	@OneToOne
 	private AccessCard card;
+
+	@OneToMany(mappedBy = "employee")
+	private List<PayStub> paystub = new ArrayList<PayStub>();
+	
+	
+	@ManyToMany(mappedBy="members")
+	private List<EmailGroup> emailGroups = new ArrayList<EmailGroup>();
+	
+
+
+	public List<EmailGroup> getEmailGroups() {
+		return emailGroups;
+	}
+
+	public void setEmailGroups(List<EmailGroup> emailGroups) {
+		this.emailGroups = emailGroups;
+	}
 
 	public String getExtra() {
 		return extra;
@@ -96,10 +119,27 @@ public class Employee {
 		this.employeeType = employeeType;
 	}
 
+	public List<PayStub> getPaystub() {
+		return paystub;
+	}
+
+	public void setPaystub(List<PayStub> paystub) {
+		this.paystub = paystub;
+	}
+	
+	public void addPayStub(PayStub payStub)
+	{
+		this.paystub.add(payStub);
+	}
+
+	public void addEmailGroup(EmailGroup emailGroup)
+	{
+		emailGroups.add(emailGroup);
+	}
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", ssn=" + ssn + ", date=" + date + ", employeeType="
-				+ employeeType + ", extra=" + extra + "]";
+				+ employeeType + ", extra=" + extra + ", card=" + card + "]";
 	}
 
 }
