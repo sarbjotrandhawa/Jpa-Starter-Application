@@ -14,7 +14,6 @@ import my.model.PayStub;
 public class JpaReader {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myApp");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -31,9 +30,9 @@ public class JpaReader {
 		System.out.println(employee1.getCard());
 
 		AccessCard c = entityManager.find(AccessCard.class, 1);
-		//System.out.println(c.getEmployee().toString());
+		// System.out.println(c.getEmployee().toString());
 
-		System.out.println("************************* Many to one, One to Many *****************************");
+		System.out.println("************************* Many to one, One to Many ****************************");
 
 		// One to many, One Employee may have multiple pay Stubs.
 		// Fetch all the pay-stubs associated with employee.
@@ -43,13 +42,12 @@ public class JpaReader {
 			System.out.println(payStub.toString());
 		}
 
-		//ManyToOne, Many pay-stub may be associated with one Employees.
-		// Find  Employees associated with a pay-stub.
-		System.out.println("=======================================");
-		
+		// ManyToOne, Many pay-stub may be associated with one Employees.
+		// Find Employees associated with a pay-stub.
+		System.out.println("=================================================================================");
+
 		PayStub payStub = entityManager.find(PayStub.class, 4);
 		System.out.println(payStub.getEmployee().toString());
-		
 
 		System.out.println("************************* Fetch Many to Many **********************************");
 
@@ -64,9 +62,10 @@ public class JpaReader {
 		}
 
 		// Find all groups associated with am Employee
-		System.out.println("=======================================");
+		System.out.println("=================================================================================");
+		
 		Employee employee = entityManager.find(Employee.class, 1);
-		List<EmailGroup> gp = employee1.getEmailGroups();
+		List<EmailGroup> gp = employee.getEmailGroups();
 		for (EmailGroup eg : gp) {
 			System.out.println(eg.toString());
 		}

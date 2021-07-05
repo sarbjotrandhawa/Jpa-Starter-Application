@@ -3,6 +3,7 @@ package my.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class PayStub {
 	private Date payPeriodEnd;
 	private float salary;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name= "PayStub_For")
 	private Employee employee;
 

@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,6 +24,8 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Employee")
+@NamedQuery(query = "select e from Employee e order by e.name", name = "emp_name_asc")
+@NamedQuery(query = "select e from Employee e where e.id =:eid", name = "EMP_By_Id")
 public class Employee {
 
 	@Id
@@ -49,15 +52,10 @@ public class Employee {
 
 	@OneToMany(mappedBy = "employee")
 	private List<PayStub> paystub = new ArrayList<PayStub>();
-	
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="EMAIL_GROUP_SUBSCRIPTION",
-	joinColumns = @JoinColumn(name = "EEMPLOYEE_ID"),
-	inverseJoinColumns = @JoinColumn(name = "SUBSCRIPTION_GROUP_ID"))
-	private List<EmailGroup> emailGroups = new ArrayList<EmailGroup>();
-	
 
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "EMAIL_GROUP_SUBSCRIPTION", joinColumns = @JoinColumn(name = "EEMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "SUBSCRIPTION_GROUP_ID"))
+	private List<EmailGroup> emailGroups = new ArrayList<EmailGroup>();
 
 	public List<EmailGroup> getEmailGroups() {
 		return emailGroups;
@@ -130,14 +128,12 @@ public class Employee {
 	public void setPaystub(List<PayStub> paystub) {
 		this.paystub = paystub;
 	}
-	
-	public void addPayStub(PayStub payStub)
-	{
+
+	public void addPayStub(PayStub payStub) {
 		this.paystub.add(payStub);
 	}
 
-	public void addEmailGroup(EmailGroup emailGroup)
-	{
+	public void addEmailGroup(EmailGroup emailGroup) {
 		emailGroups.add(emailGroup);
 	}
 
@@ -146,6 +142,5 @@ public class Employee {
 		return "Employee [id=" + id + ", name=" + name + ", ssn=" + ssn + ", date=" + date + ", employeeType="
 				+ employeeType + "]";
 	}
-	
 
 }

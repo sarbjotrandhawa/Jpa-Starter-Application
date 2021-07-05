@@ -30,7 +30,7 @@ public class JpaStartWriter {
 		e1.setEmployeeType(EmployeeType.PART_TIME);
 
 		// One to Many relationship, One employee belongs to Many Paystubs and
-		// Many Paystubs belongs to one Employee.
+		// Many Pay-stubs belongs to one Employee.
 		PayStub payStub = new PayStub();
 		payStub.setPayPeriodEnd(new Date());
 		payStub.setPayPeriodStart(new Date());
@@ -60,14 +60,20 @@ public class JpaStartWriter {
 		e1.addEmailGroup(emailGroup2);
 
 		// One to One relationship, One Card belongs to only one Employee
-		// one Employee to only ine card.
+		// one Employee to only one card.
 		AccessCard card1 = new AccessCard();
 		card1.setActive(true);
 		card1.setIssueDate(new Date());
 		card1.setFirmwareVersion("1.2.0");
 		card1.setEmployee(e);
 		e.setCard(card1);
-		
+
+		AccessCard card2 = new AccessCard();
+		card2.setActive(false);
+		card2.setIssueDate(new Date());
+		card2.setFirmwareVersion("1.2.0");
+		e1.setCard(card2);
+		card2.setEmployee(e1);
 
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myApp");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -77,6 +83,7 @@ public class JpaStartWriter {
 		entityManager.persist(e);
 		entityManager.persist(e1);
 		entityManager.persist(card1);
+		entityManager.persist(card2);
 		entityManager.persist(payStub);
 		entityManager.persist(payStub1);
 		entityManager.persist(emailGroup1);
